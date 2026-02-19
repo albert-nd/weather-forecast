@@ -6,7 +6,8 @@ const SearchBar = ({ onSelect }) => {
   const [loading, setLoading] = useState(false);
 
   const search = async () => {
-    if (!q) return;
+    if (!q.trim()) return;
+
     try {
       setLoading(true);
 
@@ -16,6 +17,7 @@ const SearchBar = ({ onSelect }) => {
 
       if (res.data.results?.length > 0) {
         onSelect(res.data.results[0]);
+        setQ("");
       }
     } catch (err) {
       console.error("Search failed", err);
@@ -25,27 +27,34 @@ const SearchBar = ({ onSelect }) => {
   };
 
   return (
-    <div className="flex gap-2 justify-center mt-4 items-center">
-      <input
-        className="py-2 px-9 bg-gray-800/50 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black font-bold placeholder-gray-300"
-        placeholder="Search for a city"
-        onChange={(e) => setQ(e.target.value)}
-      />
+    <div className="w-full max-w-md mx-auto">
+      <div className="flex items-center bg-white rounded-lg gap-2 shadow-md overflow-hidden">
+        
+        <input
+          type="text"
+          placeholder="Search for a city"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && search()}
+          className="flex-1 px-4 py-3 text-black font-medium focus:outline-none"
+        />
 
-      <button
-        onClick={search}
-        className="px-4 py-2 bg-blue-500 text-white font-bold hover:bg-blue-600 rounded-lg flex items-center gap-2"
-      >
-        {loading ? (
-          <img
-            src="/weather/icon-loading.svg"
-            alt="loading"
-            className="w-5 h-5 animate-spin"
-          />
-        ) : (
-          "Search"
-        )}
-      </button>
+        <button
+          onClick={search}
+          disabled={loading}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 flex items-center justify-center disabled:opacity-60 transition"
+        >
+          {loading ? (
+            <img
+              src="/weather/icon-loading.svg"
+              alt="loading"
+              className="w-5 h-5 animate-spin"
+            />
+          ) : (
+            "Search"
+          )}
+        </button>
+      </div>
     </div>
   );
 };
