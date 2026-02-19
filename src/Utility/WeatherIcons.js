@@ -1,11 +1,11 @@
 // Import all weather icons
-import iconClearSky from "./weather/icon-clear-sky.webp";
-import iconPartlyCloudy from "./weather/icon-partly-cloudy.webp";
-import iconOvercast from "./weather/icon-overcast.webp";
-import iconFog from "./weather/icon-fog.webp";
-import iconRain from "./weather/icon-rain.webp";
-import iconSnow from "./weather/icon-snow.webp";
-import iconStorm from "./weather/icon-storm.webp";
+import iconClearSky from "./public/weather/icon-clear-sky.webp";
+import iconPartlyCloudy from "./public/weather/icon-partly-cloudy.webp";
+import iconOvercast from "./public/weather/icon-overcast.webp";
+import iconFog from "./public/weather/icon-fog.webp";
+import iconRain from "./public/weather/icon-rain.webp";
+import iconSnow from "./public/weather/icon-snow.webp";
+import iconStorm from "./public/weather/icon-storm.webp";
 
 export const getWeatherIcon = (code) => {
   if (code === 0) return iconClearSky;

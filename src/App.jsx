@@ -9,7 +9,7 @@ import ErrorBox from "./Components/ErrorBox";
 import Skeleton from "./Components/Skeleton";
 
 // ✅ Import your logo properly
-import logo from "./weather/logo.svg"; // Adjust path if your logo is elsewhere
+import logo from "./public/weather/logo.svg";
 
 function App() {
   const [weather, setWeather] = useState(null);
