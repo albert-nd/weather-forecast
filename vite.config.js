@@ -6,4 +6,9 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   base: '/weather-forecast/',
   plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@weather": path.resolve(__dirname, "src/weather")
+    }
+  }
 })
