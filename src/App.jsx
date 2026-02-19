@@ -8,6 +8,9 @@ import UnitToggle from "./Components/UnitToggle";
 import ErrorBox from "./Components/ErrorBox";
 import Skeleton from "./Components/Skeleton";
 
+// ✅ Import your logo properly
+import logo from "./weather/logo.svg"; // Adjust path if your logo is elsewhere
+
 function App() {
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("Your Location");
@@ -56,14 +59,9 @@ function App() {
       } min-h-screen w-full overflow-x-hidden`}
     >
       <div className="px-4 py-5 sm:px-6 max-w-6xl mx-auto">
-
         {/* Navbar */}
         <div className="flex justify-between items-center mb-6">
-          <img
-            src="/weather/logo.svg"
-            alt="logo"
-            className="w-16 sm:w-20"
-          />
+          <img src={logo} alt="logo" className="w-16 sm:w-20" />
           <UnitToggle units={units} setUnits={setUnits} />
         </div>
 
@@ -84,14 +82,11 @@ function App() {
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
           {/* Left */}
           <div className="space-y-6">
             {error && <ErrorBox msg={error} />}
             {loading && <Skeleton />}
-            {!loading && weather && (
-              <CurrentWeather data={weather} city={city} />
-            )}
+            {!loading && weather && <CurrentWeather data={weather} city={city} />}
             {weather && <DailyForecast daily={weather.daily} />}
           </div>
 
@@ -101,7 +96,6 @@ function App() {
               <HourlyForecast hourly={weather.hourly} />
             </div>
           )}
-
         </div>
 
         {/* Sunrise / Sunset */}
