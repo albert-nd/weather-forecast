@@ -1,7 +1,7 @@
 // Import all weather icons
 // import iconClearSky from "./weather/icon-clear-sky.webp";
 import iconPartlyCloudy from "@weather/icon-partly-cloudy.webp";
-import iconOvercast from "@weather/icon-overcast.webpt.webp";
+import iconOvercast from "@weather/icon-overcast.webp";
 import iconFog from "@weather/icon-fog.webp";
 import iconRain from "@weather/icon-rain.webp";
 import iconSnow from "@weather/icon-snow.webp";
