@@ -8,9 +8,6 @@ import UnitToggle from "./Components/UnitToggle";
 import ErrorBox from "./Components/ErrorBox";
 import Skeleton from "./Components/Skeleton";
 
-// ✅ Import your logo properly
-import logo from "./weather/logo.svg";
-
 function App() {
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("Your Location");
@@ -32,7 +29,8 @@ function App() {
       const res = await axios.get(url);
       setWeather(res.data);
       setError("");
-    } catch {
+    } catch (err) {
+      console.error(err);
       setError("Failed to load weather data.");
     } finally {
       setLoading(false);
@@ -52,6 +50,8 @@ function App() {
   const hour = new Date().getHours();
   const night = hour > 18 || hour < 6;
 
+  const base = import.meta.env.BASE_URL; // ✅ for public images
+
   return (
     <div
       className={`${
@@ -60,13 +60,17 @@ function App() {
     >
       <div className="px-4 py-5 sm:px-6 max-w-6xl mx-auto">
         {/* Navbar */}
-        <div className="flex justify-between items-center mb-6">
-          <img src={logo} alt="logo" className="w-16 sm:w-20" />
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+          <img
+            src={`${base}weather/logo.svg`}
+            alt="logo"
+            className="w-16 sm:w-20"
+          />
           <UnitToggle units={units} setUnits={setUnits} />
         </div>
 
         {/* Heading */}
-        <h1 className="text-xl sm:text-3xl font-bold text-center mb-6 leading-snug">
+        <h1 className="text-5xl sm:text-3xl font-extrabold text-center mb-6 leading-snug">
           How's the sky looking today?
         </h1>
 
@@ -80,10 +84,10 @@ function App() {
           />
         </div>
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Content */}
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Left */}
-          <div className="space-y-6">
+          <div className="space-y-6 flex-1">
             {error && <ErrorBox msg={error} />}
             {loading && <Skeleton />}
             {!loading && weather && <CurrentWeather data={weather} city={city} />}
@@ -92,8 +96,10 @@ function App() {
 
           {/* Right */}
           {weather && (
-            <div className="mt-4 lg:mt-0">
-              <HourlyForecast hourly={weather.hourly} />
+            <div className="flex-1 mt-4 lg:mt-0">
+              <div className="overflow-x-auto">
+                <HourlyForecast hourly={weather.hourly} />
+              </div>
             </div>
           )}
         </div>

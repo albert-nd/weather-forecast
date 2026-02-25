@@ -3,18 +3,20 @@ import { getWeatherIcon } from "../Utility/WeatherIcons";
 
 const HourlyForecast = ({ hourly }) => {
   const [day, setDay] = useState(0);
-  const start = day * 24;
+  if (!hourly) return null;
 
+  const start = day * 24;
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   return (
-    <div className="mt-6 text-white rounded-lg p-4 bg-gray-800/60">
+    <div className="mt-6 text-white rounded-xl p-3 sm:p-4 bg-gray-800/70">
+      {/* Day Selector */}
       <div className="flex flex-wrap gap-2 mb-4">
         {days.map((d, index) => (
           <button
             key={d}
             onClick={() => setDay(index)}
-            className={`px-3 py-1 rounded-full text-sm font-medium ${
+            className={`px-3 py-1 rounded-full text-xs sm:text-sm font-medium transition ${
               day === index
                 ? "bg-white text-black"
                 : "bg-white/10 hover:bg-white/20"
@@ -25,19 +27,20 @@ const HourlyForecast = ({ hourly }) => {
         ))}
       </div>
 
-      <div className="flex flex-col gap-3 max-h-96 overflow-y-auto">
+      {/* Hourly List */}
+      <div className="flex flex-col gap-2 max-h-72 sm:max-h-96 overflow-y-auto">
         {hourly.time.slice(start, start + 24).map((t, i) => (
           <div
             key={t}
-            className="flex items-center justify-between w-full bg-blue-800/90 p-3 rounded-lg"
+            className="flex items-center justify-between bg-blue-900/90 p-2 sm:p-3 rounded-lg"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <img
                 src={getWeatherIcon(hourly.weather_code[start + i])}
                 alt="weather"
-                className="w-10 h-10"
+                className="w-8 h-8 sm:w-10 sm:h-10"
               />
-              <p className="font-semibold text-sm">
+              <p className="font-medium text-xs sm:text-sm">
                 {new Date(t).toLocaleTimeString([], {
                   hour: "numeric",
                   minute: "2-digit",
@@ -46,8 +49,8 @@ const HourlyForecast = ({ hourly }) => {
               </p>
             </div>
 
-            <p className="text-lg font-bold">
-              {hourly.temperature_2m[start + i]}°
+            <p className="text-base sm:text-lg font-bold">
+              {Math.round(hourly.temperature_2m[start + i])}°
             </p>
           </div>
         ))}

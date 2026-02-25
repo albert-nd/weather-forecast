@@ -10,7 +10,6 @@ const SearchBar = ({ onSelect }) => {
 
     try {
       setLoading(true);
-
       const res = await axios.get(
         `https://geocoding-api.open-meteo.com/v1/search?name=${q}`
       );
@@ -27,26 +26,28 @@ const SearchBar = ({ onSelect }) => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="flex items-center bg-white rounded-lg gap-2 shadow-md overflow-hidden">
+    <div className="w-full max-w-md mx-auto px-3">
+      <div className="flex flex-col sm:flex-row items-stretch bg-white rounded-xl shadow-md overflow-hidden">
         
+        {/* Input */}
         <input
           type="text"
-          placeholder="Search for a city"
+          placeholder="Search for a city..."
           value={q}
           onChange={(e) => setQ(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && search()}
-          className="flex-1 px-4 py-3 text-black font-medium focus:outline-none"
+          className="flex-1 py-3 px-4 text-black text-sm sm:text-base font-medium focus:outline-none"
         />
 
+        {/* Button */}
         <button
           onClick={search}
           disabled={loading}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 flex items-center justify-center disabled:opacity-60 transition"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 py-3 flex items-center justify-center disabled:opacity-60 transition w-full sm:w-auto"
         >
           {loading ? (
             <img
-              src="/weather/icon-loading.svg"
+              src="/weather-forecast/weather/icon-loading.svg"
               alt="loading"
               className="w-5 h-5 animate-spin"
             />
@@ -54,6 +55,7 @@ const SearchBar = ({ onSelect }) => {
             "Search"
           )}
         </button>
+
       </div>
     </div>
   );
